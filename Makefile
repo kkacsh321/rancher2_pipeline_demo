@@ -3,7 +3,7 @@ TAG := latest
 IMAGE_TAG := ${REGISTRY_URL}/library/pipeline-demo
 
 build:
-	docker build -t ${IMAGE_TAG}:${SHA} docker/
+	docker build -t ${IMAGE_TAG}:${SHA} -f docker/Dockerfile .
 
 shell: build
 	docker run -it ${IMAGE_TAG}:${SHA} /bin/sh
