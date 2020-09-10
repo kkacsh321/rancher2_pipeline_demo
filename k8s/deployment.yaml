@@ -16,7 +16,7 @@ spec:
       containers:
       - name: nginx-pipeline-demo
         imagePullPolicy: Always
-        image: harbor.kacsh.com/library/pipeline-demo:${CICD_GIT_COMMIT}
+        image: ${CICD_IMAGE}:${CICD_GIT_COMMIT}
 
 ---
 kind: Service
