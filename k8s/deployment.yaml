@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-pipeline-demo
+  namespace: pipeline-demo
+spec:
+  selector:
+    matchLabels:
+      app: nginx-pipeline-demo
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx-pipeline-demo
+    spec:
+      containers:
+      - name: nginx-pipeline-demo
+        imagePullPolicy: Always
+        image: harbor.kacsh.com/library/pipeline-demo:latest
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-pipeline-demo-service
+  namespace: pipeline-demo
+  annotations:
+    external-dns.alpha.kubernetes.io: pipeline-demo.kacsh.com
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pipeline-demo.kacsh.com
+  namespace: pipeline-demo
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: pipeline-demo.kacsh.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: nginx-pipeline-demo-service
+              servicePort: 80
