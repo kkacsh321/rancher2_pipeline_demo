@@ -1,0 +1,26 @@
+stages:
+- name: Build Container
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./docker/Dockerfile
+      buildContext: .
+      tag: harbor.kacsh.com/library/pipleine-demo
+      pushRemote: true
+      registry: harbor.kacsh.com
+  when:
+    branch:
+      include:
+      - master
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+timeout: 60
+notification:
+  recipients:
+  - recipient: '#rancher-notifications'
+    notifier: c-55nbm:n-zp4hf
+  condition:
+  - Success
+  - Changed
+  - Failed
