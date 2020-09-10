@@ -15,10 +15,14 @@ stages:
   steps:
   - applyYamlConfig:
       path: ./k8s/deployment.yaml
-    env:
-      HOSTNAME: pipeline-demo.kacsh.com
-      NAMESPACE: pipeline-demo
-      SERVICENAME: nginx-pipeline-demo
+  - name: Build something
+    steps:
+    - runScriptConfig:
+        image: busybox
+        shellScript: echo ${FIRST_KEY} && echo ${SECOND_KEY}
+      env:
+        FIRST_KEY: Hi
+        SECOND_KEY: Monkeys
 timeout: 60
 notification:
   recipients:
