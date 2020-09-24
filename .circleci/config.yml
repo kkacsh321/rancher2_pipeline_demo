@@ -21,3 +21,4 @@ workflows:
         dockerfile: ./docker/Dockerfile
         docker-layer-caching: false
         tag: test
+        send-success-message: true
