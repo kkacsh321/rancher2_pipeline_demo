@@ -6,7 +6,7 @@ anchors:
     filters:
       branches:
         only: master
-        
+
 orbs:
   slack: circleci/slack@3.4.2
   om-common-build: order-metrics/om-common-build@0.0
@@ -17,7 +17,7 @@ workflows:
     jobs:
     - om-ecr/build-push:
         <<: *context
-        path: ./docker
+        path: ./
         dockerfile: ./docker/Dockerfile
         docker-layer-caching: false
         tag: test
