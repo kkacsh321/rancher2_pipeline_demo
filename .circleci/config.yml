@@ -8,9 +8,9 @@ anchors:
         only: master
 
 orbs:
-  slack: circleci/slack@3.4.2
   om-common-build: order-metrics/om-common-build@0.0
   om-ecr: order-metrics/om-ecr@0.0
+  om-slack: order-metrics/om-slack@0.0
 
 workflows:
   build:
