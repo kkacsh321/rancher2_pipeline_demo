@@ -12,6 +12,16 @@ orbs:
   om-ecr: order-metrics/om-ecr@0.0
   om-slack: order-metrics/om-slack@0.0
 
+jobs:
+  send-success-message:
+    executor: om-common-build/default
+    steps:
+      - run:
+          name: "Send slack message"
+          command: |
+            ombuild slack send\
+              "$CIRCLE_USERNAME's $CIRCLE_PROJECT_REPONAME worked!"\
+
 workflows:
   build:
     jobs:
