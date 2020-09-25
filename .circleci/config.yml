@@ -15,10 +15,13 @@ orbs:
 workflows:
   build:
     jobs:
-    - om-ecr/build-push:
-        <<: *context
-        path: ./
-        dockerfile: ./docker/Dockerfile
-        docker-layer-caching: false
-        tag: test
-        send-success-message: true
+      - om-ecr/build-push:
+          <<: *context
+          path: ./
+          dockerfile: ./docker/Dockerfile
+          docker-layer-caching: false
+          tag: test
+      - send-success-message:
+          <<: *context
+          requires:
+            - om-ecr/build-push
