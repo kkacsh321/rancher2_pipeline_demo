@@ -16,11 +16,7 @@ jobs:
   send-success-message:
     executor: om-common-build/default
     steps:
-      - run:
-          name: "Send slack message"
-          command: |
-            ombuild slack send\
-              "$CIRCLE_USERNAME's $CIRCLE_PROJECT_REPONAME worked!"\
+      - om-slack/send-success-message
 
 workflows:
   build:
